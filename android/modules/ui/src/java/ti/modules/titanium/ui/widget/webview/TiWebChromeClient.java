@@ -22,6 +22,7 @@ import android.os.Message;
 import android.webkit.ConsoleMessage;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.os.Bundle;
 
 public class TiWebChromeClient extends WebChromeClient
 {
@@ -39,13 +40,16 @@ public class TiWebChromeClient extends WebChromeClient
 	@Override
 	public boolean onConsoleMessage(ConsoleMessage message)
 	{
+                if (10!=android.os.Build.VERSION.SDK_INT) {
+
 		switch (message.messageLevel()) {
 			case DEBUG:
-				Log.d(CONSOLE_TAG, message.message() + " (" + message.lineNumber() + ":" + message.sourceId() + ")");
+				//Log.d(CONSOLE_TAG, message.message() + " (" + message.lineNumber() + ":" + message.sourceId() + ")");
 				break;
 			default:
-				Log.i(CONSOLE_TAG, message.message() + " (" + message.lineNumber() + ":"+ message.sourceId() + ")");
+				//Log.i(CONSOLE_TAG, message.message() + " (" + message.lineNumber() + ":"+ message.sourceId() + ")");
 				break;
+		}
 		}
 		return true;
 	}

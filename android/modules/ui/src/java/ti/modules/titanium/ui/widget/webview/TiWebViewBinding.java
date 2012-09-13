@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.webkit.WebView;
+import android.os.Bundle;
 
 public class TiWebViewBinding
 {
@@ -86,9 +87,16 @@ public class TiWebViewBinding
 
 		apiBinding = KrollLogging.getDefault();
 		appBinding = new AppBinding();
-		webView.addJavascriptInterface(appBinding, "TiApp");
-		webView.addJavascriptInterface(apiBinding, "TiAPI");
-		webView.addJavascriptInterface(new TiReturn(), "_TiReturn");
+		Log.d(LCAT,"sdk version is " + android.os.Build.VERSION.SDK_INT);
+		
+		if (10==android.os.Build.VERSION.SDK_INT) {
+
+			Log.d(LCAT,"not adding js interface");
+		}else{
+			webView.addJavascriptInterface(appBinding, "TiApp");
+			webView.addJavascriptInterface(apiBinding, "TiAPI");
+			webView.addJavascriptInterface(new TiReturn(), "_TiReturn");
+		}
 	}
 
 	public TiWebViewBinding(TiContext tiContext, WebView webView)
